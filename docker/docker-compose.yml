@@ -1,20 +1,22 @@
-nginx:
-  build: nginx
-  command: nginx -g "daemon off;"
-  links:
-    - php
-  ports:
-    - "9001:80"
-php:
-  build: php
-  volumes:
-    - ../iban:/var/www
-  working_dir: /var/www/public
-  command: php-fpm
-  environment:
-    APP_ENV: local
-    APP_DEBUG: 'true'
-    APP_LOCALE: it
-    APP_FALLBACK_LOCALE: it
-    XDEBUG_CONFIG: remote_host=host.docker.internal
-    PHP_IDE_CONFIG: serverName=localhost
+version: '3'
+services:
+  nginx:
+    build: nginx
+    command: nginx -g "daemon off;"
+    links:
+      - php
+    ports:
+      - "9001:80"
+  php:
+    build: php
+    volumes:
+      - ../iban:/var/www
+    working_dir: /var/www/public
+    command: php-fpm
+    environment:
+      APP_ENV: local
+      APP_DEBUG: 'true'
+      APP_LOCALE: it
+      APP_FALLBACK_LOCALE: it
+      XDEBUG_CONFIG: remote_host=host.docker.internal
+      PHP_IDE_CONFIG: serverName=localhost
